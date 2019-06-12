@@ -51,7 +51,7 @@ for(i in seq_along(keywords)){
         tweet_files <- list.files(paste0("./tweets_json/", keywords[i]))
         df_file <- list()
         for (j in seq_along(tweet_files)){
-                df_file[[j]] <- fromJSON(paste0("tweets_json/", keywords[i], "/", tweet_files[j]), flatten = T)#%>% arrange(timestamp)
+                df_file[[j]] <- fromJSON(paste0("tweets_json/", keywords[i], "/", tweet_files[j]), flatten = T)
                 
         }
         df_keyword <- do.call("rbind", df_file)
@@ -88,15 +88,13 @@ count_weekly_tweets <- function(tweets_json = df_json){
                                 total_weekly_tweets[count] = df %>% filter(week == j, year == i) %>% nrow()
                                 week_start <- date_in_week(year = i, week = j, weekday = 1)
                                 week_end <- date_in_week(year = i, week = j, weekday = 7)
-                                week_date[count] <- strftime(week_start, format = "%d-%m-%y")#, " - ", week_end)
+                                week_date[count] <- strftime(week_start, format = "%d-%m-%y")
                         }
                 }
                 
                 count_start <- which(total_weekly_tweets > 0)[1]
                 count_end <- which(total_weekly_tweets > 0) %>% .[length(.)]
                 total_duration <- count_start:count_end
-                # total_weekly_tweets[total_duration]
-                # week_date[total_duration]
                 
                 df_list[[json_names[keyword]]] <- cbind.data.frame(week = week_date[total_duration], number_of_tweets = total_weekly_tweets[total_duration])
                 svMisc::progress(keyword, length(tweets_json))
