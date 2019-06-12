@@ -1,4 +1,4 @@
-# twitter_scraper
+# Twitter Scraper
 A tool to scrape historical tweets that the Twitter API forbids
 
 This script builds upon the twitterscraper Python tool. 
